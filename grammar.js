@@ -3319,7 +3319,8 @@ module.exports = grammar({
     _double_quote_string: _ => /"[^"]*"/,
     // The norm specify that between two consecutive string must be a return,
     // but this is good enough.
-    _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
+    // _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
+    _single_quote_string: _ => seq("'", repeat(choice(/[^'\\]/, /\\./)), "'"),
     _literal_string: $ => prec(
       1,
       choice(
